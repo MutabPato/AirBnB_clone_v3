@@ -23,9 +23,10 @@ def teardown_db(exception):
 
 @app.errorhandler(404)
 def page_not_found(exception):
+    """Handler for 404 errors"""
     return jsonify({
         "error": "Not found"
-        })
+        }), 404
 
 
 if __name__ == '__main__':
