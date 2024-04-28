@@ -52,7 +52,7 @@ def create_state():
     if 'name' not in request.get_json:
         abort(400, "Missing name")
 
-    data = request.json
+    data = request.get_json
     state = State(**data)
     storage.new(state)
     storage.save()
