@@ -16,7 +16,7 @@ from models import storage
         '/places/<place_id>/reviews', methods=['GET'], strict_slashes=False)
 def get_reviews(place_id):
     """Retrieve the list of all Review objects of a Place"""
-    place = storage.get(Place, state_id)
+    place = storage.get(Place, place_id)
 
     if not place:
         abort(404)
@@ -54,7 +54,7 @@ def delete_review(review_id):
         '/places/<place_id>/reviews', methods=['POST'], strict_slashes=False)
 def create_review(place_id):
     """Create a new review"""
-    place = storage.get(Place, state_id)
+    place = storage.get(Place, place_id)
 
     if not place:
         abort(404)
@@ -66,7 +66,7 @@ def create_review(place_id):
         abort(400, "Missing name")
 
     data = request.get_json()
-    data['place_id'] = state_id
+    data['place_id'] = place_id
     review = Review(**data)
     storage.new(review)
     storage.save()
